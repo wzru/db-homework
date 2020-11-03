@@ -8,7 +8,9 @@ SELECT *
 FROM Student
 WHERE Sdept = "CS";
 -- （3）找出考试成绩为优秀（90 分及以上）或不及格的学生的学号、课程号及成绩；
-SELECT *
+SELECT Sno,
+    Cno,
+    Grade
 FROM SC
 WHERE Grade >= 90
     OR Grade < 60;
@@ -29,7 +31,7 @@ SELECT Cno,
     Ccredit
 FROM Course
 WHERE Cname LIKE "%数据%";
--- （7) 找出所有没有选修课成绩的学生学号和课程号；
+-- （7） 找出所有没有选修课成绩的学生学号和课程号；
 SELECT Sno,
     Cno
 FROM SC

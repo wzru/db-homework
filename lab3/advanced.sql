@@ -75,7 +75,8 @@ FROM S_T_U201814867.Student;
 -- (9)用系统管理员登录
 -- (10)对 SC 表建立一个更新触发器，当更新了 SC 表的成绩时，如果更新后的成绩大于等于95，则检查该成绩的学生是否有奖学金，如果奖学金是“否”，则修改为“是”。
 -- 如果修改后的成绩小于 95，则检查该学生的其他成绩是不是有大于 95 的，如果都没有，且修改前的成绩是大于 95 时，则把其奖学金修改为”否”。
-DELIMITER $$ CREATE TRIGGER upd_sc
+DELIMITER $$ 
+CREATE TRIGGER upd_sc
 AFTER
 UPDATE ON SC FOR EACH ROW BEGIN IF NEW.Grade >= 95 THEN
 UPDATE Student
@@ -101,7 +102,8 @@ END $$;
 -- (11)删除刚定义的触发器
 DROP TRIGGER upd_sc;
 -- (12)定义一个存储过程计算 CS 系的课程的平均成绩和最高成绩，在查询分析器或查询编辑器中执行存储过程，查看结果。
-DELIMITER $$ CREATE PROCEDURE calc_grd() BEGIN
+DELIMITER $$ 
+CREATE PROCEDURE calc_grd() BEGIN
 SELECT Cno,
     AVG(Grade),
     MAX(Grade)
@@ -114,7 +116,8 @@ WHERE Sno IN (
 GROUP BY Cno;
 END $$;
 -- (13)定义一个带学号为参数的查看某个学号的所有课程的成绩，查询结果要包含学生姓名。进行验证。
-DELIMITER $$ CREATE PROCEDURE query_grd(IN no char(9)) BEGIN
+DELIMITER $$ 
+CREATE PROCEDURE query_grd(IN no char(9)) BEGIN
 SELECT Student.Sname,
     SC.Cno,
     SC.Grade
@@ -126,7 +129,8 @@ END $$;
 CALL query_grd('200215121');
 -- (14)把上一题改成函数。再进行验证。
 SET GLOBAL log_bin_trust_function_creators = 1;
-DELIMITER $$ CREATE FUNCTION func_query_grd(no char(9)) RETURNS INT BEGIN CREATE TEMPORARY TABLE Grade(
+DELIMITER $$ 
+CREATE FUNCTION func_query_grd(no char(9)) RETURNS INT BEGIN CREATE TEMPORARY TABLE Grade(
     SELECT Student.Sname,
         SC.Cno,
         SC.Grade

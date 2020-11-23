@@ -1,18 +1,34 @@
 package main
 
 type Course struct {
-	NO     string `gorm:"column:Cno;primaryKey"`
-	Name   string `gorm:"column:Cname"`
-	PNO    string `gorm:"column:Cpno"`
-	Credit int16  `gorm:"column:Ccredit"`
+	NO     string `json:"no" gorm:"column:Cno;primaryKey"`
+	Name   string `json:"name" gorm:"column:Cname"`
+	PNO    string `json:"pno" gorm:"column:Cpno"`
+	Credit int16  `json:"credit" gorm:"column:Ccredit"`
 }
 
 func (*Course) TableName() string {
 	return "Course"
 }
 
-func getCourseByNameNO(n string) []Course {
+func listCsByKeyword(n string) []Course {
 	var cs []Course
 	db.Where("Cno=? OR Cname=?", n, n).Find(&cs)
 	return cs
+}
+
+func getCsByNO(no string) *Course {
+	var cs []Course
+	db.Where("Cno=?", no).First(&cs)
+	if len(cs) > 0 {
+		return &cs[0]
+	}
+	return nil
+}
+
+func listNoCs() []Course {
+	var css []Course
+	db.Raw("SELECT * FROM Course WHERE Cno NOT IN(SELECT DISTINCT Cno FROM SC);").Scan(&css)
+	// fmt.Printf("css=%+v\n", css)
+	return css
 }

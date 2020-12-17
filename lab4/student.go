@@ -32,10 +32,8 @@ func listDept() []string {
 	var depts []string
 	var sts []Student
 	db.Distinct("Sdept").Find(&sts)
-	// fmt.Printf("sts=%+v", sts)
 	for _, st := range sts {
 		depts = append(depts, st.Dept)
 	}
-	// fmt.Printf("depts=%+v", depts)
 	return depts
 }

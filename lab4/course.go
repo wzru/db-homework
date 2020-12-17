@@ -29,6 +29,5 @@ func getCsByNO(no string) *Course {
 func listNoCs() []Course {
 	var css []Course
 	db.Raw("SELECT * FROM Course WHERE Cno NOT IN(SELECT DISTINCT Cno FROM SC);").Scan(&css)
-	// fmt.Printf("css=%+v\n", css)
 	return css
 }

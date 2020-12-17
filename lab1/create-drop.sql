@@ -12,4 +12,9 @@ CREATE TABLE SC(
     Grade int,
     Primary key (Sno, Cno)
 );
+CREATE TABLE SC (
+    Sno CHAR(9),
+    Cno CHAR(4),
+    Grade SMALLINT
+);
 DROP TABLE Student;

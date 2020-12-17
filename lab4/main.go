@@ -145,21 +145,10 @@ func main() {
 			b, _ := json.MarshalIndent(css, "", "\t")
 			fmt.Printf("%+v\n", string(b))
 			kw = climenu.GetText("确认删除以上课程?(y/n)", "n")
-			// kw = climenu.GetText("请输入课程号", "")
-			// if cs = getCsByNO(kw); st == nil {
-			// 	log.Print("课程号不存在!")
-			// 	waitEnter()
-			// 	break
-			// }
-			// fmt.Printf("%+v", *cs)
-			// kw = climenu.GetText("确认删除(y/N)", "n")
 			if kw == "y" || kw == "Y" {
 				for _, cs := range css {
 					fmt.Printf("delete %v\n", cs)
-					// db = db.Exec("set foreign_key_checks=0;")
-					// db = db.Delete(&cs)
 					db.Exec("DELETE FROM Course WHERE Cno=?", cs.NO)
-					// time.Sleep(time.Duration(2000) * time.Millisecond)
 				}
 				log.Print("删除课程成功")
 			} else {
